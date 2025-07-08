@@ -50,7 +50,7 @@ def lambda_handler(event, context):
         data = {
             "summary": body_data.get("summary", "No summary available"),
             "callback": body_data.get("callback", "False"),
-            "disposition_id": body_data.get("disposition_id", "0"),
+            "disposition_id": body_data.get("extractions", {}).get("disposition_id", "0"),
             "first_name": body_data.get("extractions", {}).get("first_name", "Unknown"),
             "last_name": body_data.get("extractions", {}).get("last_name", "Unknown"),
             "phone_number": body_data.get("from_number", "Unknown"),
