@@ -46,7 +46,7 @@ def lambda_handler(event, context):
         else:
             body_data = event.get('body', {})
         
-        log = data.get('log')
+        log = body_data.get('log')
         # Extract data from the request body
         data = {
             "summary": body_data.get("extractions", {}).get("summary", "No summary available"),
