@@ -46,9 +46,10 @@ def lambda_handler(event, context):
         else:
             body_data = event.get('body', {})
         
+        log = data.get('log')
         # Extract data from the request body
         data = {
-            "summary": body_data.get("summary", "No summary available"),
+            "summary": body_data.get("extractions", {}).get("summary", "No summary available"),
             "callback": body_data.get("callback", "False"),
             "disposition_id": body_data.get("extractions", {}).get("disposition_id", "0"),
             "first_name": body_data.get("extractions", {}).get("first_name", "Unknown"),
@@ -117,6 +118,7 @@ def lambda_handler(event, context):
             headers={"x-api-key": "$2a$11$5GHNF.BbEILij03XRr163eV0lrbRGu6Rq.jlycXAvB.fddAZkO5GK"}, 
             data={
                 "id": row_id, 
+                "api_logs": log,
                 "campaign_id": data['campaign_id'],  
                 "recording": data["recording"], 
                 "api_logs": obj['functions'],
