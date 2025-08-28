@@ -45,8 +45,9 @@ def lambda_handler(event, context):
             body_data = json.loads(event.get('body', '{}'))
         else:
             body_data = event.get('body', {})
-        
-        log = body_data.get('log')
+        print("Body Data: ", body_data)
+        session_id = body_data.get('log', {}).get('bbEngineSessionId')
+        print("Session ID: ", session_id)
         # Extract data from the request body
         data = {
             "summary": body_data.get("extractions", {}).get("summary", "No summary available"),
@@ -118,7 +119,7 @@ def lambda_handler(event, context):
             headers={"x-api-key": "$2a$11$5GHNF.BbEILij03XRr163eV0lrbRGu6Rq.jlycXAvB.fddAZkO5GK"}, 
             data={
                 "id": row_id, 
-                "api_logs": log,
+                "api_logs": {"transferEvent": body_data.get("data", {}).get("transferEventFromEngine", {})},
                 "campaign_id": data['campaign_id'],  
                 "recording": data["recording"], 
                 "api_logs": obj['functions'],
